@@ -6,4 +6,3 @@ function findFirstRepeated(gifts) {
     }
     return -1;
   }
-  

@@ -1,38 +1,37 @@
 function cyberReindeer(road, time) {
   const result = [road];
-  let roadSteps = road.split('');
+  let roadSteps = road.split("");
   let openedDoor = false;
   let reindeerIndex = 0;
   for (let t = time; t > 1; t--) {
     if (t === time - 4) {
-      roadSteps = roadSteps.map(step => step === '|' ? '*' : '.');
+      roadSteps = roadSteps.map((step) => (step === "|" ? "*" : "."));
     }
-    if (roadSteps[reindeerIndex + 1] !== '|') {
-      roadSteps[reindeerIndex] = openedDoor ? '*' : '.';
+    if (roadSteps[reindeerIndex + 1] !== "|") {
+      roadSteps[reindeerIndex] = openedDoor ? "*" : ".";
       reindeerIndex++;
-      openedDoor = roadSteps[reindeerIndex] !== '.';
-      roadSteps[reindeerIndex] = 'S';
+      openedDoor = roadSteps[reindeerIndex] !== ".";
+      roadSteps[reindeerIndex] = "S";
     }
-    result.push(roadSteps.join(''));
+    result.push(roadSteps.join(""));
   }
   return result;
 }
 
-function cyberReindeerStrings(road, time) {
+function cyberReindeerString(road, time) {
   const result = [road];
-  let openedDoor = false;
+  let openRoad = road.replace("S", ".");
   let reindeerIndex = 0;
   for (let t = time; t > 1; t--) {
     if (t === time - 4) {
-      road = road.replaceAll("|", "*");
+      openRoad = openRoad.replaceAll("|", "*");
     }
-    if (road.charAt(reindeerIndex + 1) !== "|") {
-      const previousRoad = road;
+    if (openRoad.charAt(reindeerIndex + 1) !== "|") {
       reindeerIndex++;
-      road = `${road.slice(0, reindeerIndex - 1)}${
-        openedDoor ? "*" : "."
-      }S${road.slice(reindeerIndex + 1, road.length)}`;
-      openedDoor = previousRoad.charAt(reindeerIndex) !== ".";
+      road = `${openRoad.slice(0, reindeerIndex)}S${openRoad.slice(
+        reindeerIndex + 1,
+        openRoad.length
+      )}`;
     }
     result.push(road);
   }

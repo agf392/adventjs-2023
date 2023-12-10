@@ -13,3 +13,18 @@ function adjustLights(lights) {
   });
   return Math.min(count1, count2);
 }
+
+// Less complexity
+function adjustLights2(lights) {
+  let count = [0, 0];
+  for(let i = 0; i < lights.length; i++) {
+    const remainder = i % 2;
+    if (lights[i] === lights[0]) {
+      count[remainder] = count[remainder] + 1;
+    } else {
+      const remainder2 = (remainder - 1) * (remainder - 1);
+      count[remainder2] = count[remainder2] + 1;
+    }
+  };
+  return Math.min(...count);
+}

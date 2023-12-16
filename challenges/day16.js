@@ -1,16 +1,13 @@
 function transformTree(tree) {
-  if (tree.length === 0) return null;
-
-  const fillNode = (resultTree, n) => {
+  const fillNode = (n) => {
+    const value = tree[n];
+    if (typeof value !== "number") return null;
     return {
-      value: tree[n],
-      left: typeof tree[2 * n + 1] === "number"
-        ? fillNode(resultTree, 2 * n + 1) : null,
-      right: typeof tree[2 * n + 2] === "number"
-        ? fillNode(resultTree, 2 * n + 2) : null,
+      value,
+      left: fillNode(2 * n + 1),
+      right: fillNode(2 * n + 2),
     };
   };
-
-  const resultTree = fillNode({}, 0);
-  return resultTree;
+  const result = fillNode(0);
+  return result;
 }

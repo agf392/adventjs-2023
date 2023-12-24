@@ -21,3 +21,28 @@ function organizeChristmasDinner(dishes) {
   }
   return result;
 }
+
+function organizeChristmasDinnerV2(dishes) {
+  const ingredients = {};
+
+  for (const dish of dishes) {
+    const dishName = dish[0];
+    for (let i = 1; i < dish.length; i++) {
+      const ingredient = dish[i];
+      ingredients[ingredient] = ingredients[ingredient]
+        ? [...ingredients[ingredient], dishName]
+        : [dishName];
+    }
+  }
+
+  const orderedIngredients = Object.keys(ingredients).sort();
+
+  const result = orderedIngredients
+    .filter((ingredient) => ingredients[ingredient].length > 1)
+    .map((ingredient) => [
+      ingredient,
+      ...ingredients[ingredient].sort(),
+    ]);
+
+  return result;
+}
